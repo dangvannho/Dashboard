@@ -1,4 +1,8 @@
 import React from "react";
+import Header from "@/components/common/header";
+import Sidebar from "@/components/common/sidebar";
+import "./globals.css";
+
 import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -12,7 +16,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div className="min-h-screen bg-background flex">
+          <Sidebar />
+          <div className="flex-1">
+            <Header />
+            <main className="bg-[#F5F6FA] h-full p-10 ml-64 mt-[70px]">
+              {children}
+            </main>
+          </div>
+        </div>
+      </body>
     </html>
   );
 }
