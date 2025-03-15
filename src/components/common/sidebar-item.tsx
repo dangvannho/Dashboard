@@ -19,7 +19,7 @@ const SidebarItem = ({ icon: Icon, label, href }: SidebarItemProps) => {
       <Link
         href={href}
         className={cn(
-          "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 group hover:bg-primary hover:text-white ",
+          "flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-all duration-200 group hover:bg-primary hover:text-white ",
           isActive
             ? "bg-primary text-primary-foreground hover:bg-primary/90"
             : "text-sidebar-foreground"

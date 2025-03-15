@@ -98,46 +98,49 @@ const PAGES_SIDEBAR = [
 ];
 function Sidebar() {
   return (
-    <aside className="fixed top-0 w-64 min-h-screen border-r border-border bg-sidebar flex flex-col">
+    <aside className="fixed top-0 w-64 h-screen border-r border-border flex flex-col">
       <div className="flex h-[70px] items-center gap-2 px-6 border-b border-border">
         <span className="text-xl font-bold tracking-tight text-primary">
           Dash
         </span>
         <span className="text-xl font-bold tracking-tight">Stack</span>
       </div>
-      <div className="flex-1 flex flex-col py-4">
-        <div className="flex-1 border-b border-[#E0E0E0] ">
-          <SidebarSection>
-            {DASHBOARD_SIDEBAR.map((item) => (
-              <SidebarItem
-                key={item.href}
-                icon={item.icon}
-                label={item.label}
-                href={item.href}
-              />
-            ))}
-          </SidebarSection>
+
+      <div className="flex-1 overflow-y-auto scrollbar-hide">
+        <div className="flex flex-col">
+          <div className="flex-1 border-b border-[#E0E0E0] ">
+            <SidebarSection>
+              {DASHBOARD_SIDEBAR.map((item) => (
+                <SidebarItem
+                  key={item.href}
+                  icon={item.icon}
+                  label={item.label}
+                  href={item.href}
+                />
+              ))}
+            </SidebarSection>
+          </div>
+
+          <div className="flex-1 border-b border-[#E0E0E0]">
+            <SidebarSection title="PAGES">
+              {PAGES_SIDEBAR.map((item) => (
+                <SidebarItem
+                  key={item.href}
+                  icon={item.icon}
+                  label={item.label}
+                  href={item.href}
+                />
+              ))}
+            </SidebarSection>
+          </div>
         </div>
 
-        <div className="flex-1 border-b border-[#E0E0E0]">
-          <SidebarSection title="PAGES">
-            {PAGES_SIDEBAR.map((item) => (
-              <SidebarItem
-                key={item.href}
-                icon={item.icon}
-                label={item.label}
-                href={item.href}
-              />
-            ))}
+        <div className="flex-1">
+          <SidebarSection className="py-0">
+            <SidebarItem icon={Settings} label="Settings" href="/settings" />
+            <SidebarItem icon={LogOut} label="Logout" href="/logout" />
           </SidebarSection>
         </div>
-      </div>
-
-      <div className="flex-1">
-        <SidebarSection>
-          <SidebarItem icon={Settings} label="Settings" href="/settings" />
-          <SidebarItem icon={LogOut} label="Logout" href="/logout" />
-        </SidebarSection>
       </div>
     </aside>
   );

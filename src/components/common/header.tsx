@@ -22,7 +22,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="w-[calc(100%-256px)] fixed right-0 top-0 h-[70px] border-b border-border bg-background flex items-center justify-between px-4 md:px-6 ">
+    <header className="w-[calc(100%-256px)] fixed z-10 right-0 top-0 h-[70px] border-b border-border bg-background flex items-center justify-between px-4 md:px-6 ">
       <div className="flex items-center gap-6 ml-5">
         <AlignJustify className="cursor-pointer" />
 
