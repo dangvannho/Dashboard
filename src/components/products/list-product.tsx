@@ -6,7 +6,7 @@ const products = [
     name: "Apple Watch Series 4",
     price: "$120.00",
     reviews: 131,
-    rating: 4.5,
+    rating: 4,
   },
   {
     id: 2,
@@ -24,7 +24,7 @@ const products = [
   },
 ];
 
-const renderStars = (rating: number) => {
+export const renderStars = (rating: number) => {
   return [...Array(5)].map((_, index) => (
     <StarIcon
       key={index}
@@ -38,7 +38,7 @@ const renderStars = (rating: number) => {
 const ListProduct = () => {
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 w-[100%]">
         {products.map((product) => (
           <ProductItem
             key={product.id}
