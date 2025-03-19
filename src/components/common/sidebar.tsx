@@ -45,7 +45,7 @@ const DASHBOARD_SIDEBAR = [
   {
     icon: ClipboardList,
     label: "Order Lists",
-    href: "/orders",
+    href: "/order-list",
   },
   {
     icon: PackageOpen,
