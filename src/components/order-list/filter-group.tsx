@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { Filter, RotateCcw } from "lucide-react";
 import DropCalendar from "./drop-calendar";
@@ -32,6 +33,31 @@ const dataMenu = [
   },
 ];
 const FilterGroup = () => {
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  const [tempSelectedTypes, setTempSelectedTypes] = useState<string[]>([]);
+
+  const toggleSelection = (type: string) => {
+    setTempSelectedTypes((prev) =>
+      prev.includes(type)
+        ? prev.filter((item) => item !== type)
+        : [...prev, type]
+    );
+  };
+
+  const applySelections = () => {
+    setSelectedTypes(tempSelectedTypes); // Chỉ lưu khi bấm Apply
+  };
+
+  const resetSelections = () => {
+    setSelectedTypes([]);
+    setTempSelectedTypes([]);
+  };
+
+  // Đồng bộ tempSelectedTypes với selectedTypes khi menu mở
+  const initializeTempSelections = () => {
+    setTempSelectedTypes(selectedTypes);
+  };
+
   return (
     <div className="flex flex-wrap items-center h-[60px] w-[650px]">
       <Button
@@ -52,6 +78,10 @@ const FilterGroup = () => {
           subTitle={item.subTitle}
           className="flex-1"
           orderTypes={item.orderTypes}
+          tempSelectedTypes={tempSelectedTypes}
+          toggleSelection={toggleSelection}
+          applySelections={applySelections}
+          initializeTempSelections={initializeTempSelections}
         />
       ))}
 
@@ -59,6 +89,7 @@ const FilterGroup = () => {
         variant="outline"
         size="sm"
         className="flex flex-1 items-center gap-2 text-rose-500 hover:bg-rose-50 hover:text-rose-500 h-full rounded-tr-lg rounded-br-lg rounded-tl-none rounded-bl-none"
+        onClick={resetSelections}
       >
         <RotateCcw size={16} />
         <span className="text-sm font-semibold">Reset Filter</span>

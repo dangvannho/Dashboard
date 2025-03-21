@@ -1,11 +1,10 @@
-"use client";
-import { useState } from "react";
 import React from "react";
 import { ChevronDown } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
+  DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
@@ -15,6 +14,10 @@ interface DropMenuProps {
   subTitle: string;
   className?: string;
   orderTypes: string[];
+  tempSelectedTypes: string[];
+  toggleSelection: (type: string) => void;
+  applySelections: () => void;
+  initializeTempSelections: () => void;
 }
 
 const DropMenu = ({
@@ -22,17 +25,13 @@ const DropMenu = ({
   subTitle,
   className,
   orderTypes,
+  tempSelectedTypes,
+  toggleSelection,
+  applySelections,
+  initializeTempSelections,
 }: DropMenuProps) => {
-  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
-  const toggleSelection = (type: string) => {
-    setSelectedTypes((prev) =>
-      prev.includes(type)
-        ? prev.filter((item) => item !== type)
-        : [...prev, type]
-    );
-  };
   return (
-    <DropdownMenu>
+    <DropdownMenu onOpenChange={(open) => open && initializeTempSelections()}>
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
@@ -54,7 +53,7 @@ const DropMenu = ({
               key={index}
               className={cn(
                 "px-3 py-2 rounded-full border text-sm font-medium",
-                selectedTypes.includes(type)
+                tempSelectedTypes.includes(type)
                   ? "bg-blue-500 text-white"
                   : "border-gray-300 text-gray-700 hover:bg-gray-100"
               )}
@@ -68,9 +67,14 @@ const DropMenu = ({
         <p className="text-sm text-gray-500 mt-4">
           {`*You can choose multiple ${title}`}
         </p>
-        <Button className="w-max mt-8 bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold mx-auto block">
-          Apply Now
-        </Button>
+        <DropdownMenuItem className="focus:bg-transparent">
+          <Button
+            className="w-max mt-8 bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold mx-auto block"
+            onClick={applySelections}
+          >
+            Apply Now
+          </Button>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -8,21 +8,23 @@ interface SidebarItemProps {
   icon: React.ElementType;
   label: string;
   href: string;
+  isOpen?: boolean;
 }
 
-const SidebarItem = ({ icon: Icon, label, href }: SidebarItemProps) => {
+const SidebarItem = ({ icon: Icon, label, href, isOpen }: SidebarItemProps) => {
   const pathname = usePathname();
   const isActive = pathname === href;
 
   return (
-    <div className="px-5 relative">
+    <div className={cn("relative", isOpen ? "px-0" : "px-5")}>
       <Link
         href={href}
         className={cn(
           "flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-all duration-200 group hover:bg-primary hover:text-white ",
           isActive
             ? "bg-primary text-primary-foreground hover:bg-primary/90"
-            : "text-sidebar-foreground"
+            : "text-sidebar-foreground",
+          isOpen && "justify-center"
         )}
       >
         <Icon
@@ -33,10 +35,15 @@ const SidebarItem = ({ icon: Icon, label, href }: SidebarItemProps) => {
               : "text-sidebar-foreground/70 group-hover:text-sidebar-foreground"
           )}
         />
-        <span>{label}</span>
+        <span className={cn(isOpen && "hidden")}>{label}</span>
       </Link>
       {isActive && (
-        <div className="h-full w-1 rounded-r-md bg-primary absolute left-0 top-0"></div>
+        <div
+          className={cn(
+            "h-full w-1 rounded-r-md bg-primary absolute left-0 top-0",
+            isOpen && "hidden"
+          )}
+        ></div>
       )}
     </div>
   );
