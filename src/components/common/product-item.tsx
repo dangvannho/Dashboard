@@ -22,7 +22,7 @@ function productItem({ product, renderStars }: ProductItemProps) {
     <>
       <div
         key={product.id}
-        className="bg-white p-4 rounded-2xl shadow-sm relative w-[361px] hover:shadow-md transition-shadow"
+        className="bg-white p-4 rounded-2xl shadow-sm relative hover:shadow-md transition-shadow"
       >
         <div className="relative overflow-hidden rounded-xl mb-4">
           <img
