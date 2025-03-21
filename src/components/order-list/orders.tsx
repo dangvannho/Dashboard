@@ -102,14 +102,202 @@ const orderData: Order[] = [
     type: "Book",
     status: "In Transit",
   },
+  {
+    id: "00010",
+    name: "Tina Murphy",
+    address: "721 Clemens Court",
+    date: "12 Mar 2020",
+    type: "Clothing",
+    status: "Completed",
+  },
+  {
+    id: "00011",
+    name: "Paul Cooper",
+    address: "4869 Metz Points",
+    date: "07 Jul 2020",
+    type: "Shoes",
+    status: "Processing",
+  },
+  {
+    id: "00012",
+    name: "Karen Flores",
+    address: "3788 Daniel Summit",
+    date: "18 Oct 2020",
+    type: "Furniture",
+    status: "Rejected",
+  },
+  {
+    id: "00013",
+    name: "Jason Taylor",
+    address: "9216 Gaylord Port",
+    date: "25 Nov 2020",
+    type: "Toy",
+    status: "On Hold",
+  },
+  {
+    id: "00014",
+    name: "Michelle Barnes",
+    address: "7896 Krajcik Land",
+    date: "02 Jan 2021",
+    type: "Electric",
+    status: "In Transit",
+  },
+  {
+    id: "00015",
+    name: "Franklin Carter",
+    address: "368 Luettgen Way",
+    date: "10 Feb 2021",
+    type: "Book",
+    status: "Completed",
+  },
+  {
+    id: "00016",
+    name: "Brenda Dixon",
+    address: "5416 Schowalter Rest",
+    date: "14 Apr 2021",
+    type: "Medicine",
+    status: "Processing",
+  },
+  {
+    id: "00017",
+    name: "Patrick King",
+    address: "8198 Aufderhar Tunnel",
+    date: "29 May 2021",
+    type: "Mobile",
+    status: "Rejected",
+  },
+  {
+    id: "00018",
+    name: "Angela White",
+    address: "4656 Fadel Crest",
+    date: "05 Jul 2021",
+    type: "Watch",
+    status: "On Hold",
+  },
+  {
+    id: "00019",
+    name: "Steven Green",
+    address: "961 Haag Drive",
+    date: "12 Sep 2021",
+    type: "Toy",
+    status: "In Transit",
+  },
+  {
+    id: "00020",
+    name: "Jessica Hall",
+    address: "3571 Runolfsdottir Hollow",
+    date: "22 Oct 2021",
+    type: "Shoes",
+    status: "Completed",
+  },
+  {
+    id: "00021",
+    name: "Daniel Scott",
+    address: "9987 Koepp Glen",
+    date: "15 Dec 2021",
+    type: "Clothing",
+    status: "Processing",
+  },
+  {
+    id: "00022",
+    name: "Rachel Adams",
+    address: "4711 Becker Harbor",
+    date: "05 Jan 2022",
+    type: "Furniture",
+    status: "Rejected",
+  },
+  {
+    id: "00023",
+    name: "Aaron Foster",
+    address: "7893 Swift Fork",
+    date: "18 Mar 2022",
+    type: "Book",
+    status: "On Hold",
+  },
+  {
+    id: "00024",
+    name: "Lindsey Rogers",
+    address: "6201 Will Lake",
+    date: "09 Apr 2022",
+    type: "Medicine",
+    status: "In Transit",
+  },
+  {
+    id: "00025",
+    name: "Bryan Gonzalez",
+    address: "185 Douglas Parkway",
+    date: "21 Jun 2022",
+    type: "Mobile",
+    status: "Completed",
+  },
+  {
+    id: "00026",
+    name: "Emma Nelson",
+    address: "3456 Schmeler Ranch",
+    date: "11 Aug 2022",
+    type: "Electric",
+    status: "Processing",
+  },
+  {
+    id: "00027",
+    name: "Gary Barnes",
+    address: "8886 Hammes Mountain",
+    date: "03 Sep 2022",
+    type: "Toy",
+    status: "Rejected",
+  },
+  {
+    id: "00028",
+    name: "Samantha Kelly",
+    address: "5544 Bartoletti Lodge",
+    date: "30 Oct 2022",
+    type: "Watch",
+    status: "On Hold",
+  },
+  {
+    id: "00029",
+    name: "Ryan Robinson",
+    address: "2325 Block Park",
+    date: "15 Dec 2022",
+    type: "Shoes",
+    status: "In Transit",
+  },
+  {
+    id: "00030",
+    name: "Sophia Evans",
+    address: "7731 Rempel Gateway",
+    date: "07 Jan 2023",
+    type: "Furniture",
+    status: "Completed",
+  },
 ];
 
 export default function OrderTable() {
   const [orders, setOrders] = useState<Order[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9;
 
   useEffect(() => {
     setOrders(orderData);
   }, []);
+
+  // Tính toán số trang
+  const totalPages = Math.ceil(orders.length / itemsPerPage);
+
+  // Lấy danh sách đơn hàng theo trang hiện tại
+  const currentOrders = orders.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  // Xử lý chuyển trang
+  const handlePrevPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  };
 
   return (
     <div className="space-y-5">
@@ -130,7 +318,7 @@ export default function OrderTable() {
             </TableRow>
           </TableHeader>
           <TableBody className="bg-white">
-            {orders.map((order) => (
+            {currentOrders.map((order) => (
               <TableRow
                 key={order.id}
                 className="border-b hover:bg-gray-50 transition h-[65px]"
@@ -167,14 +355,28 @@ export default function OrderTable() {
 
       {/* Pagination */}
       <div className="flex items-center justify-between px-6">
-        <div className="text-sm text-gray-500">Showing 1-9 of 9</div>
+        <div className="text-sm text-gray-500">
+          Showing {(currentPage - 1) * itemsPerPage + 1}-
+          {Math.min(currentPage * itemsPerPage, orders.length)} of{" "}
+          {orders.length}
+        </div>
 
         <div className="flex gap-2">
-          <Button variant="outline" size="icon">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handlePrevPage}
+            disabled={currentPage === 1}
+          >
             <ChevronLeft size={16} />
           </Button>
 
-          <Button variant="outline" size="icon">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+          >
             <ChevronRight size={16} />
           </Button>
         </div>
