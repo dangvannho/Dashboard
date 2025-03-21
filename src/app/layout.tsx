@@ -1,7 +1,6 @@
 import React from "react";
-import Header from "@/components/common/header";
-import Sidebar from "@/components/common/sidebar";
 import "./globals.css";
+import MainLayout from "@/components/layouts/main-layout";
 
 import type { Metadata } from "next";
 export const metadata: Metadata = {
@@ -17,15 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="min-h-screen bg-background flex">
-          <Sidebar />
-          <div className="flex-1">
-            <Header />
-            <main className="bg-[#F5F6FA] h-full p-10 ml-64 mt-[70px]">
-              {children}
-            </main>
-          </div>
-        </div>
+        <MainLayout>{children}</MainLayout>
       </body>
     </html>
   );

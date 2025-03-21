@@ -21,7 +21,7 @@ interface Order {
   status: "Completed" | "Processing" | "Rejected" | "On Hold" | "In Transit";
 }
 
-const statusColors: Record<string, string> = {
+const statusColors = {
   Completed: "bg-green-100 text-green-600",
   Processing: "bg-purple-100 text-purple-600",
   Rejected: "bg-red-100 text-red-600",

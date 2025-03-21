@@ -9,6 +9,7 @@ import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
+  DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -28,22 +29,21 @@ const DropCalendar = ({ className }: { className?: string }) => {
             className
           )}
         >
-          <span className="text-sm font-semibold">Date</span>
+          <span className="text-sm font-semibold">
+            {selected
+              ? selected.toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                })
+              : "Date"}
+          </span>
           <ChevronDown size={16} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-80 pb-[30px] bg-white shadow-lg rounded-[26px]">
         <div className="relative pb-[24px]">
-          <DayPicker
-            mode="single"
-            selected={selected}
-            onSelect={setSelected}
-            footer={
-              selected
-                ? `Selected: ${selected.toLocaleDateString()}`
-                : "Pick a day."
-            }
-          />
+          <DayPicker mode="single" selected={selected} onSelect={setSelected} />
 
           <div className="w-full h-[0.5px] bg-[#979797] absolute bottom-0"></div>
         </div>
@@ -51,9 +51,11 @@ const DropCalendar = ({ className }: { className?: string }) => {
         <p className="text-sm text-gray-500 mt-4 ml-4">
           *You can choose multiple dates
         </p>
-        <Button className="w-max mt-8 bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold mx-auto block">
-          Apply Now
-        </Button>
+        <DropdownMenuItem className="focus:bg-transparent">
+          <Button className="w-max mt-8 bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold mx-auto block">
+            Apply Now
+          </Button>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
