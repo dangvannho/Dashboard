@@ -14,7 +14,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         <Header isOpen={isOpen} setIsOpen={setIsOpen} />
         <main
           className={cn(
-            "bg-[#F5F6FA] h-[calc(100%-70px)] p-10 mt-[70px] transition-all duration-300",
+            "bg-[#F5F6FA] h-[calc(100%-70px)] p-10 mt-[70px] transition-all duration-150",
             isOpen ? "ml-16" : "ml-64"
           )}
         >
