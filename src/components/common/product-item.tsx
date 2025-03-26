@@ -5,9 +5,10 @@ import type { Product } from "@/types/product";
 
 interface ProductItemProps {
   product: Product;
+  checked?: boolean;
 }
 
-function productItem({ product }: ProductItemProps) {
+function productItem({ product, checked }: ProductItemProps) {
   const [imageIndex, setImageIndex] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -64,7 +65,11 @@ function productItem({ product }: ProductItemProps) {
                 handleLikeClick();
               }}
             >
-              <Heart size={20} fill={isLiked ? "currentColor" : "none"} />
+              {checked ? (
+                <Heart size={20} fill={"currentColor"} />
+              ) : (
+                <Heart size={20} fill={isLiked ? "currentColor" : "none"} />
+              )}
             </button>
           </div>
           <div className="mt-2">

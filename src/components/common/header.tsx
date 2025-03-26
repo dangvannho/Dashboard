@@ -15,7 +15,7 @@ import {
   Calendar,
   AlertCircle,
   UserRound,
-  Settings
+  Settings,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -59,7 +59,7 @@ const Header = ({ isOpen, setIsOpen }: HeaderProps) => {
           />
 
           <div className="relative w-96">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-2.5 top-2.5 size-5 text-muted-foreground" />
             <Input
               type="search"
               placeholder="Search..."
@@ -87,7 +87,6 @@ const Header = ({ isOpen, setIsOpen }: HeaderProps) => {
               <DropdownMenuLabel className="font-normal px-4 py-3 text-base border-b">
                 Notification
               </DropdownMenuLabel>
-            
 
               <div className="max-h-[300px] overflow-y-auto">
                 <DropdownMenuItem className="flex items-start gap-3 px-4 py-3 focus:bg-secondary/50">
