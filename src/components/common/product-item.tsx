@@ -1,23 +1,32 @@
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
-import StarIcon from "../icon/star-icon";
-
-interface Product {
-  id: number;
-  name: string;
-  price: string;
-  reviews: number;
-  rating: number;
-}
+import RenderStars from "./render-star";
+import type { Product } from "@/types/product";
 
 interface ProductItemProps {
   product: Product;
-  renderStars: (rating: number) => JSX.Element[];
+  checked?: boolean;
 }
 
-function productItem({ product, renderStars }: ProductItemProps) {
+function productItem({ product, checked }: ProductItemProps) {
   const [imageIndex, setImageIndex] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
+
+  const handleLikeClick = () => {
+    const likedProductsJson = localStorage.getItem("likedProducts");
+
+    if (!likedProductsJson) {
+      const newLikedProducts = [product];
+      localStorage.setItem("likedProducts", JSON.stringify(newLikedProducts));
+    } else {
+      const likedProducts = JSON.parse(likedProductsJson);
+      if (!likedProducts.some((p: Product) => p.id === product.id)) {
+        likedProducts.push(product);
+        localStorage.setItem("likedProducts", JSON.stringify(likedProducts));
+      }
+    }
+  };
+
   return (
     <>
       <div
@@ -51,9 +60,16 @@ function productItem({ product, renderStars }: ProductItemProps) {
               className={`rounded-full p-2 transition-colors ${
                 isLiked ? "text-red-500 bg-red-50" : "text-red-500 bg-gray-50"
               }`}
-              onClick={() => setIsLiked((prev) => !prev)}
+              onClick={() => {
+                setIsLiked((prev) => !prev);
+                handleLikeClick();
+              }}
             >
-              <Heart size={20} fill={isLiked ? "currentColor" : "none"} />
+              {checked ? (
+                <Heart size={20} fill={"currentColor"} />
+              ) : (
+                <Heart size={20} fill={isLiked ? "currentColor" : "none"} />
+              )}
             </button>
           </div>
           <div className="mt-2">
@@ -61,7 +77,7 @@ function productItem({ product, renderStars }: ProductItemProps) {
               {product.price}
             </p>
             <div className="flex items-center gap-1 mt-1">
-              {renderStars(product.rating)}
+              <RenderStars rating={product.rating} />
               <span className="text-sm text-gray-500 ml-1">
                 ({product.reviews})
               </span>

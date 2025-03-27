@@ -14,8 +14,18 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const DropCalendar = ({ className }: { className?: string }) => {
-  const [selected, setSelected] = useState<Date>();
+interface DropCalendarProps {
+  className?: string;
+  selectedDate: Date | undefined;
+  setSelectedDate: (date: Date | undefined) => void;
+}
+
+const DropCalendar = ({ className, selectedDate, setSelectedDate}: DropCalendarProps) => {
+  const [tempSelected, setTempSelected] = useState<Date>();
+
+  const handleApply = () => {
+    setSelectedDate(tempSelected)
+  }; 
 
 
   return (
@@ -30,8 +40,8 @@ const DropCalendar = ({ className }: { className?: string }) => {
           )}
         >
           <span className="text-sm font-semibold">
-            {selected
-              ? selected.toLocaleDateString("en-GB", {
+            {selectedDate
+              ? selectedDate.toLocaleDateString("en-GB", {
                   day: "2-digit",
                   month: "short",
                   year: "numeric",
@@ -43,7 +53,7 @@ const DropCalendar = ({ className }: { className?: string }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-80 pb-[30px] bg-white shadow-lg rounded-[26px]">
         <div className="relative pb-[24px]">
-          <DayPicker mode="single" selected={selected} onSelect={setSelected} />
+          <DayPicker mode="single" selected={tempSelected} onSelect={setTempSelected} />
 
           <div className="w-full h-[0.5px] bg-[#979797] absolute bottom-0"></div>
         </div>
@@ -52,7 +62,10 @@ const DropCalendar = ({ className }: { className?: string }) => {
           *You can choose multiple dates
         </p>
         <DropdownMenuItem className="focus:bg-transparent">
-          <Button className="w-max mt-8 bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold mx-auto block">
+          <Button 
+            className="w-max mt-8 bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold mx-auto block"
+            onClick={handleApply}
+          >
             Apply Now
           </Button>
         </DropdownMenuItem>

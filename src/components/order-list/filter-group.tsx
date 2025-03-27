@@ -35,6 +35,7 @@ const dataMenu = [
 const FilterGroup = () => {
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [tempSelectedTypes, setTempSelectedTypes] = useState<string[]>([]);
+  const [selectedDate, setSelectedDate] = useState<Date>();
 
   const toggleSelection = (type: string) => {
     setTempSelectedTypes((prev) =>
@@ -45,12 +46,13 @@ const FilterGroup = () => {
   };
 
   const applySelections = () => {
-    setSelectedTypes(tempSelectedTypes); // Chỉ lưu khi bấm Apply
+    setSelectedTypes(tempSelectedTypes);
   };
 
   const resetSelections = () => {
     setSelectedTypes([]);
     setTempSelectedTypes([]);
+    setSelectedDate(undefined);
   };
 
   // Đồng bộ tempSelectedTypes với selectedTypes khi menu mở
@@ -69,7 +71,11 @@ const FilterGroup = () => {
         <span className="text-sm font-semibold">Filter By</span>
       </Button>
 
-      <DropCalendar className="flex-1" />
+      <DropCalendar 
+        className="flex-1" 
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+      />
 
       {dataMenu.map((item, index) => (
         <DropMenu
