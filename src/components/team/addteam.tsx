@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -56,9 +55,10 @@ const AddTeam = () => {
             <Camera className="h-8 w-8 text-gray-400" />
           )}
         </div>
-        <button className="text-blue-500 text-sm font-medium">
+        <label className="cursor-pointer text-blue-500 text-sm font-medium">
           Upload Photo
-        </button>
+          <input type="file" className="hidden" />
+        </label>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-[80px] ">
@@ -132,6 +132,6 @@ const AddTeam = () => {
       </div>
     </div>
   );
-}
+};
 
 export default AddTeam;
