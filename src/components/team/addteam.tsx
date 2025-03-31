@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -46,7 +47,7 @@ const AddTeam = () => {
       <div className="flex flex-col items-center mb-6">
         <div className="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center mb-2 overflow-hidden">
           {newMember.imageSrc ? (
-            <img
+            <Image
               src={newMember.imageSrc}
               alt="Profile"
               className="w-full h-full object-cover"
