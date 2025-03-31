@@ -1,16 +1,20 @@
+"use client";
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import RenderStars from "./render-star";
 import type { Product } from "@/types/product";
+import Image from "next/image";
 
 interface ProductItemProps {
   product: Product;
   checked?: boolean;
 }
 
-function productItem({ product, checked }: ProductItemProps) {
+function ProductItem({ product, checked }: ProductItemProps) {
   const [imageIndex, setImageIndex] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
+
+  console.log(imageIndex);
 
   const handleLikeClick = () => {
     const likedProductsJson = localStorage.getItem("likedProducts");
@@ -34,9 +38,12 @@ function productItem({ product, checked }: ProductItemProps) {
         className="bg-white p-4 rounded-2xl shadow-sm relative hover:shadow-md transition-shadow"
       >
         <div className="relative overflow-hidden rounded-xl mb-4">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGFwcGxlJTIwd2F0Y2h8ZW58MHx8MHx8fDA%3D"
-            className="w-full aspect-square object-cover bg-white"
+            className="max-w-full aspect-square object-cover bg-white"
+            alt="Product Image"
+            width={500}
+            height={500}
           />
           <button
             className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-gray-50 p-2 rounded-full shadow-sm"
@@ -94,4 +101,4 @@ function productItem({ product, checked }: ProductItemProps) {
   );
 }
 
-export default productItem;
+export default ProductItem;

@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+
+import React, { useState } from "react";
 import { emails } from "@/components/inbox-group/data-inbox";
 import { useRouter, useParams } from "next/navigation";
 import {
@@ -18,7 +19,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function MessagesPage() {
-  const params = useParams();
   const router = useRouter();
   const [newMessage, setNewMessage] = useState("");
   const { emailId } = useParams() as { emailId: string };
@@ -52,11 +52,6 @@ export default function MessagesPage() {
         };
       });
       setNewMessage("");
-      setCurrentEmail({
-        ...currentEmail,
-        messages: [...currentEmail.messages, userMessage],
-      });
-      setNewMessage("");
 
       // Mô phỏng tin nhắn trả lời từ sender sau 2 giây
       setTimeout(() => {
@@ -69,10 +64,12 @@ export default function MessagesPage() {
           isHighlighted: false, // Tin nhắn nhận được không highlight
         };
 
-        setCurrentEmail((prevEmail) => ({
+        setCurrentEmail((prevEmail) => {
+          if (!prevEmail) return undefined;
+         return { 
           ...prevEmail,
-          messages: [...prevEmail.messages, replyMessage],
-        }));
+          messages: [...(prevEmail.messages || []), replyMessage],
+      }});
       }, 2000); // Trả lời sau 2 giây
     }
   };

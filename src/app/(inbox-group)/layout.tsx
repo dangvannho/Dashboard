@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter } from "next/router";
 import InboxSidebar from "@/components/inbox-group/inbox-sidebar";
 import { emails } from "@/components/inbox-group/data-inbox";
 

@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import Profile from "@/components/team/profile";
@@ -13,7 +11,7 @@ interface TeamMember {
 }
 
 const TeamPage = () => {
-  const data = [
+  const data: TeamMember[] = [
     {
       name: "Nguyễn Văn A",
       role: "Frontend Developer",

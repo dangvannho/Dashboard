@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import EmailList from "@/components/inbox-group/emailList";
 import { emails as mockEmails } from "@/components/inbox-group/data-inbox";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,9 @@ export default function EmailClientPage() {
   const [activeFolder, setActiveFolder] = useState("Inbox");
   const [activeLabel, setActiveLabel] = useState<string | null>(null);
 
+  console.log(setActiveFolder);
+  console.log(setActiveLabel)
+  
   const filteredEmails = emails
     .filter((email) => {
       if (activeFolder === "Inbox")

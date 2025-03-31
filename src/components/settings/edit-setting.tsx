@@ -1,20 +1,52 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import { Camera } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import Image from "next/image";
 
 const EditSetting = () => {
   const [image, setImage] = useState<string | null>(null);
+
+  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      // Kiểm tra kích thước file (ví dụ: giới hạn 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert("File quá lớn. Vui lòng chọn file nhỏ hơn 5MB");
+        return;
+      }
+
+      // Kiểm tra loại file
+      if (!file.type.startsWith("image/")) {
+        alert("Vui lòng chọn file ảnh");
+        return;
+      }
+
+      // Tạo URL cho ảnh preview
+      const imageUrl = URL.createObjectURL(file);
+      setImage(imageUrl);
+    }
+  };
+
+  // Cleanup function khi component unmount
+  useEffect(() => {
+    return () => {
+      // Xóa URL object khi không cần thiết nữa
+      if (image) {
+        URL.revokeObjectURL(image);
+      }
+    };
+  }, [image]);
 
   return (
     <div className="w-full py-10 rounded-[14px] bg-white border border-[#B9B9B9]">
       {/* Logo Upload Section */}
       <div className="flex flex-col items-center mb-8">
-        <div className="w-24 h-24 rounded-full bg-[#F5F6FA] flex items-center justify-center mb-2 relative">
+        <div className="w-24 h-24 rounded-full bg-[#F5F6FA] flex items-center justify-center mb-2 relative overflow-hidden">
           {image ? (
-            <img
+            <Image
               src={image}
               alt="Logo"
               className="w-full h-full rounded-full object-cover"
@@ -24,9 +56,14 @@ const EditSetting = () => {
           )}
         </div>
 
-        <label className="text-blue-500 text-sm cursor-pointer font-semibold">
+        <label className="text-blue-500 text-sm cursor-pointer font-semibold hover:text-blue-600 transition-colors">
           Upload Logo
-          <input type="file" accept="image/*" className="hidden" />
+          <input
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleImageUpload}
+          />
         </label>
       </div>
 

@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Image from "next/image";
 import { Badge } from "../ui/badge";
 import {
   Table,
@@ -137,7 +138,7 @@ const Deal = () => {
               <TableCell>
                 <div className="flex items-center gap-3">
                   <div className="h-10 w-10 rounded-full bg-background border border-border flex items-center justify-center overflow-hidden">
-                    <img
+                    <Image
                       src={transaction.imageUrl}
                       alt={transaction.product}
                       className="h-full w-full object-cover"
